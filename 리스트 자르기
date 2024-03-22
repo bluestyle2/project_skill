@@ -1,0 +1,39 @@
+HashMap<String, String> map = new HashMap<String, String>();
+		
+		List<HashMap> originData = new ArrayList<HashMap>();
+		
+		for(int i = 0; i < 260; i++) {
+			/* sendList.put("num"+i,"test"+i+"@test.com"); */
+			map = new HashMap<>();
+			map.put("email", "email"+i+"@test.com");
+			map.put("name", "name"+i);
+			map.put("userId", "userId"+i);
+			System.out.println("map"+i+" : "+map);
+			originData.add(map);
+		}
+		
+		if (originData.size() < 49) {
+			for (HashMap<String, String> toData : originData) {
+//				리스트의 데이터 49개 이하시 정상적으로 처리
+			}
+			
+		}else if(originData.size() >= 49) {
+//			데이터 49개 이상일때 나눠서 처리
+			List<HashMap> toList = originData;
+			System.out.println("전체 List : "+toList);
+			int limit = 49;
+			int repeat = originData.size() % limit != 0 ? originData.size()  / limit + 1 : originData.size()  / limit;
+			System.out.println("originData size : "+originData.size() + repeat);
+			for(int id = 0; id < repeat; id++){
+				List<HashMap> splitList = new ArrayList<HashMap>();
+		        if (id != (repeat - 1)) {
+		            splitList.addAll( toList.subList(id * limit, (id + 1) * limit));
+		            System.out.println(id+1+"번째 List : "+splitList);
+		            
+		        } else {
+		        	splitList.addAll( toList.subList(id * limit, toList.size()));
+		            System.out.println(id+1+"번째 이후 List : "+splitList);
+		        }
+		    }
+		}
+	}
