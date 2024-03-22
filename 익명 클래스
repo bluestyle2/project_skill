@@ -1,0 +1,50 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+interface MyInterface{
+	List<Map<String,Object>>  myMethod(List list);
+}
+
+public class TestCode {
+
+	public static void main(String[] args) {
+
+		List listSender2 = new ArrayList<Object>();
+		MyInterface myInterface = new MyInterface() {
+			@Override
+			public List<Map<String,Object>> myMethod(List list) {
+				Map<String,Object> mapReceive = new HashMap<>();
+				mapReceive = (Map<String,Object>)list.get(0);
+				
+				// Map 객체의 모든 값들 꺼내오기(키 상관없이)
+				//System.out.println(mapReceive.values());
+				// Map 객체의 특정 키의 대한 값 꺼내오기
+				//System.out.println(mapReceive.get("test1"));
+				
+				List listSender = new ArrayList<Object>();
+				
+				mapReceive.put("test4","test4_value");
+				mapReceive.put("test5","test5_value");
+				listSender.add(mapReceive);
+				
+				return listSender;
+			}
+		};
+		
+		List<Map<String,Object>> list2 = new ArrayList<>();
+				Map<String,Object> map2 = new HashMap<>();
+				
+				// List에 Map Data를 넣는 로직 (S)
+				map2.put("test1","test1_value");
+				map2.put("test2","test2_value");
+				map2.put("test3","test3_value");
+				
+				list2.add(map2);
+		
+		List receiverList = myInterface.myMethod(list2);
+		//List<Map<?,?>> 형태의 데이타 확인
+		System.out.println(receiverList);
+  }
+}
