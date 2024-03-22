@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TestCode {
+
+	public static void main(String[] args) {
+
+List<List<Integer>> listSender = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
+		// 몇백개의 data 리스트에 담기
+		for(int i = 0; i < 123; i++) {
+			list.add(i);
+		}
+		//System.out.println(list);
+		
+		int maxCount = 40; //몇백개가 든 list data에 루프를 계산할 필요한 개수 
+		int listSize = list.size(); //list의 인덱스 갯수
+		int loopCount = listSize / maxCount; // 루프 계산
+		System.out.println("size : "+listSize);
+		System.out.println(loopCount);
+		
+		for(int i = 0; i < loopCount; i++) { //루프 갯수만큼 리스트를 잘라서 삽입
+			System.out.println("계산용 : "+listSender.add(list.subList(i * maxCount, (i+1) * maxCount)));
+			System.out.println("계산용2 : "+listSender.get(i));
+			
+		}
+				
+		//나머지 리스트 계산용
+		int endCount = maxCount * loopCount;
+		System.out.println("나머지리스트계산용 : "+listSender.add(list.subList(endCount, listSize)));
+		
+		System.out.println("listSenderd : "+listSender.get(loopCount));
+		System.out.println("listSender : "+listSender);
+		
+		int div  = listSender.size()/40;
+		int mod = listSender.size()%40;
+		System.out.println("div : "+div);
+		System.out.println("mod : "+mod);
+  }
+}
