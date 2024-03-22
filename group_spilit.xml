@@ -1,0 +1,22 @@
+group_test table : group_id라는 고유값으로 구분
+WITH tree_query  AS (
+  SELECT group_id
+       , parent_group_id
+       , group_name
+       , convert(nvarchar(max),group_id) as sort  
+  	   , convert(nvarchar(max),group_name) as depth_fullname
+       , 0 as lv
+    FROM group_test
+    WHERE group_id = '50124002'
+    UNION ALL 
+    SELECT
+          B.group_id
+        , B.parent_group_id
+        , B.group_name
+        , convert(nvarchar(max),C.sort) + ' > ' +  convert(nvarchar(max),B.group_id) as sort
+        , convert(nvarchar(max),C.depth_fullname) + ' > ' +  convert(nvarchar(max),B.group_name) as depth_fullname
+        , c.lv + 1 as lv
+    FROM  group_test B, tree_query C
+    WHERE B.parent_group_id = C.group_id
+) 
+SELECT lv, group_id, parent_group_id, group_name, depth_fullname FROM tree_query order by SORT;
